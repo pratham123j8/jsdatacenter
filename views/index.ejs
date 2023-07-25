@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Page</title>
+</head>
+<body>
+    <h1> Input Page </h1>
+    
+    <form action "/" method="post"  >
+        <label>Student Name</label> <br>
+        <input name="studentName" type="text"> <br> <br>
+
+        <label>Student Number</label> <br>
+        <input name="studentNumber" type="text"> <br> <br>
+
+        <label>Date of Enrolment</label>  <br>
+        <input name="programStartDate" type="date">  <br> <br>
+
+        <label>Mentor Name</label>  <br>
+        <select name="mentorName">
+            <option value="Angel">Angel</option>
+            <option value="YashTangri">YashTangri</option>
+        </select>  <br>  <br>
+
+        <button name="addstudent" type="submit" >Add Student</button>
+    </form>
+
+    <br>
+
+
+    <form action = "/test" method="post" >
+
+        <button type="submit" > CurrentEnroled </button>
+    </form>
+
+
+
+</body>
+</html>
