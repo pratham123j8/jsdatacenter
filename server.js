@@ -9,6 +9,43 @@ app.set('view engine', 'ejs')
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended:true}))
 
+// Database stuff
+
+const mongoose = require('mongoose');
+const { stringify } = require("querystring");
+const mongoURI = "mongodb+srv://pratham123j8:Lifeisjoy123@cluster0.zkqyuf6.mongodb.net/?retryWrites=true&w=majority";
+
+mongoose.connect(mongoURI, {
+useNewUrlParser: true,
+useUnifiedTopology: true,
+});
+
+
+
+const studentSchema = new mongoose.Schema({
+
+    studentName: String,
+    mentorName: String,
+    programStartDate:String,
+    studentNumber:String
+
+}) 
+
+const Student = mongoose.model("Student", studentSchema );
+
+
+const student = new Student ({
+
+    studentName: 'aman',
+    mentorName: 'Angel',
+    programStartDate: '2023-06-01',
+    studentNumber:'6789'
+
+})
+
+student.save().then(()=>{
+    console.log("User Saved")
+})
 
 // This is where the main code starts
 
@@ -102,8 +139,12 @@ console.log('Post requestion from /test has been made')
 
 
 
+let port = process.env.PORT;
 
+if (port == null || port == ""){
+    port = 3000;
+}
 
-app.listen(3000, function(){
+app.listen(port, function(){
     console.log("Severstarted🤬")
 })
