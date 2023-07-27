@@ -9,6 +9,15 @@ app.set('view engine', 'ejs')
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended:true}))
 
+// Variables 
+
+let allData = []
+let currentlyEnroled = [];
+let date = new Date()
+
+
+
+
 // Database stuff
 
 const mongoose = require('mongoose');
@@ -43,48 +52,70 @@ const student = new Student ({
 
 })
 
-student.save().then(()=>{
-    console.log("User Saved")
-})
+// student.save().then(()=>{
+//     console.log("User Saved")
+// })
 
-// This is where the main code starts
 
-let alldata = [ {
-    studentName: 'Rachit',
-    mentorName: 'Angel',
-    programStartDate: '2023-07-01',
-    studentNumber: '098'
-  },
-  {
-    studentName: 'aman',
-    mentorName: 'Angel',
-    programStartDate: '2023-06-01',
-    studentNumber: '1234567'
-  }
-];
-let currentlyEnroled = [];
-let date = new Date()
+async function finder() {
+    let students = await Student.find().then((res)=>{
+        allData = res
+    })
+
+    
+}
+
+finder()
+
+// ------------------------------------ This is where the main code starts
+
 
 app.get('/', function(req,res){
-    res.render( "index.ejs", {name:"monday"})
-   
+    res.render( "index.ejs")
+    
+
     // res.sendFile(__dirname + "/index.html")
 
 })
 
 app.get('/alldata', function(req,res){
-    res.render("alldata.ejs", {allData: alldata})
+
+    
+
+    res.render("alldata.ejs", {allData: allData})
 })
 
 app.post('/', function(req,res){
-    console.log("😄")
-    alldata.push({studentName:req.body.studentName,
-        mentorName:req.body.mentorName,
+    
+    const student = new Student ({
+        studentName: req.body.studentName,
+        mentorName: req.body.mentorName,
         programStartDate: req.body.programStartDate,
-        studentNumber: req.body.studentNumber})
+        studentNumber: req.body.studentNumber
+    })
+    
 
+    async function studentAdder() { 
+        let studentAdded =  await student.save().then((response)=>{
+            console.log(response)
+            allData.push(response)
+        }).then(()=>{
+
+
+
+            res.redirect('/alldata')
+
+        })
+    }
+
+    studentAdder()
+
+    
+   
+
+   
   
-    res.redirect('/alldata')
+   
 
     
     
@@ -95,11 +126,11 @@ app.post("/test", function(req,res){
    
 console.log('Post requestion from /test has been made')
 
-   for (let i = 0; i < alldata.length; i++) {
+   for (let i = 0; i < allData.length; i++) {
 
 
     let date1 = new Date()
-    let date2 = new Date(alldata[i].programStartDate)
+    let date2 = new Date(allData[i].programStartDate)
 
     var time_difference = date1.getTime() - date2.getTime();
     var days_difference = time_difference / (1000 * 60 * 60 * 24);  
@@ -108,16 +139,16 @@ console.log('Post requestion from /test has been made')
    
      if (  Math.trunc(days_difference) < 30 ) {
 
-        currentlyEnroled[i] = alldata[i]
+        currentlyEnroled[i] = allData[i]
 
      }
     
    }
 
-   alldata = [];
+   allData = [];
 
    for ( let i = 0; i < currentlyEnroled.length; i++){
-    alldata[i] = currentlyEnroled[i]
+    allData[i] = currentlyEnroled[i]
    }
 
 
