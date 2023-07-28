@@ -11,10 +11,14 @@ app.use(bodyParser.urlencoded({extended:true}))
 
 // Variables 
 
-let allData = []
+let allData = [];
 let currentlyEnroled = [];
-let date = new Date()
-
+let date = new Date();
+let selectedMentor = '';
+let mentorStudents = [];
+let users = [{userName:"vidyaniwas@gmail.com", password:"123" },{ userName:"pratham@gmail.com", password:"123"}]
+let currentUser = "";
+let allowUser = false
 
 
 
@@ -71,7 +75,26 @@ finder()
 
 
 app.get('/', function(req,res){
-    res.render( "index.ejs")
+
+    console.log(currentUser, "this is current user")
+
+    for (let i = 0; i < users.length; i++) {
+
+        if (currentUser == users[i].userName){
+
+            allowUser = true;
+        }
+        
+    }
+
+    if(allowUser ){
+
+        res.render( "index.ejs")
+
+
+    }
+
+   
     
 
     // res.sendFile(__dirname + "/index.html")
@@ -80,10 +103,25 @@ app.get('/', function(req,res){
 
 app.get('/alldata', function(req,res){
 
-    
-
+    console.log(allData)
     res.render("alldata.ejs", {allData: allData})
 })
+
+app.get('/currentlyEnrolled', function(req,res){
+    res.render("alldata.ejs", {allData:currentlyEnroled})
+})
+
+app.get('/mentorSort',function(req,res){
+    res.render("mentorsort.ejs", {mentorStudents:mentorStudents})
+
+})
+
+app.get('/login', function(req,res){
+    res.render("login.ejs")
+})
+
+
+// ----- All The Post Requests -----------------------------------
 
 app.post('/', function(req,res){
     
@@ -122,10 +160,10 @@ app.post('/', function(req,res){
 })
 
 
-app.post("/test", function(req,res){
+app.post("/currentlyEnrolled", function(req,res){
    
 console.log('Post requestion from /test has been made')
-
+    currentlyEnroled = []
    for (let i = 0; i < allData.length; i++) {
 
 
@@ -135,28 +173,21 @@ console.log('Post requestion from /test has been made')
     var time_difference = date1.getTime() - date2.getTime();
     var days_difference = time_difference / (1000 * 60 * 60 * 24);  
 
-    console.log(days_difference)
+    console.log(days_difference, ' is difference in days')
    
      if (  Math.trunc(days_difference) < 30 ) {
 
-        currentlyEnroled[i] = allData[i]
+        currentlyEnroled.push(allData[i]) ;
 
      }
+
     
    }
 
-   allData = [];
-
-   for ( let i = 0; i < currentlyEnroled.length; i++){
-    allData[i] = currentlyEnroled[i]
-   }
-
-
-
-   console.log(currentlyEnroled)
+   console.log(currentlyEnroled, "This is currently enrolled array")
   
 
-    res.redirect('/alldata')
+    res.redirect('/currentlyEnrolled')
 
   
 
@@ -165,7 +196,46 @@ console.log('Post requestion from /test has been made')
 
  } )
 
+app.post('/mentorSort',function(req,res){
 
+
+    mentorStudents = [];
+    console.log(req.body.mentorName, "This is mentor name")
+
+    selectedMentor = req.body.mentorName;
+    
+    for (let i = 0; i < allData.length; i++) {
+
+        if ( allData[i].mentorName == selectedMentor ){
+
+            mentorStudents.push(allData[i])
+
+        }
+        
+        
+    }
+
+    res.redirect('/mentorSort')
+
+})
+
+
+app.post('/login', function(req,res){
+
+    
+
+    for (let i = 0; i < users.length; i++) {
+        if ( req.body.userName == users[i].userName && req.body.password == users[i].password ){
+            currentUser = req.body.userName;
+            res.redirect('/')
+
+        }
+        
+    }
+
+    
+
+})
 
 
 

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sort By Mentor</title>
+</head>
+<body>
+
+
+
+    <form action = "/mentorSort" method="post" >
+
+        <label>Sort By Mentor</label>  <br>
+        <select name="mentorName">
+            <option value="Angel">Angel</option>
+            <option value="YashTangri">YashTangri</option>
+        </select>  <br>  <br>
+        <button type="submit" >Search</button>
+
+       
+    </form>
+
+
+
+    <table style="width:100%">
+        <tr>
+          <th>Student Name</th>
+          <th>Student Number</th>
+          <th>Enrolment Date</th>
+          <th>Mentor Assigned</th>
+        </tr>
+
+       <% for (let i = 0; i < mentorStudents.length; i++) {  %>
+            
+
+          <tr>
+            <td> <%- mentorStudents[i].studentName %> </td>
+            <td> <%-  mentorStudents[i].studentNumber %> </td>
+            <td> <%- mentorStudents[i].programStartDate %> </td>
+            <td> <%- mentorStudents[i].mentorName %> </td>
+            
+          </tr>
+
+
+
+        <%   } %> 
+
+      </table>
+    
+</body>
+</html>
