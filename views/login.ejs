@@ -4,15 +4,23 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/login.css">
+    <!-- <style>  body{
+        background-color: aqua;
+    } </style> -->
     <title>Login Page</title>
 </head>
 <body>
 
-    <form action "/login" method="post"  >
+
+
+    <form action "/login" method="post" class="login"  >
        
-        <label>Enter Login Details</label>  <br>
-        <input name="userName" type="text">  <br> <br>
-        <input name="password" type="text">  <br> <br>
+        <label>Enter Login Details</label> 
+        
+        <input name="userName" type="text" placeholder="username" > 
+       
+        <input name="password" type="password" placeholder = "password" >  
 
 
         <button type="submit" >Login</button>

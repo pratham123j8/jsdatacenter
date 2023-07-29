@@ -4,25 +4,32 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/index.css">
     <title>Input Page</title>
 </head>
 <body>
     <h1> Input Page </h1>
     
-    <form action "/" method="post"  >
-        <label>Student Name</label> <br>
-        <input name="studentName" type="text"> <br> <br>
+    <form action "/" method="post" class="inputs" >
+       
+        <input name="studentName" type="text" placeholder="students Name"> 
 
-        <label>Student Number</label> <br>
-        <input name="studentNumber" type="text"> <br> <br>
+      
+        <input name="studentNumber" type="text" placeholder="Students Number" > 
 
-        <label>Date of Enrolment</label>  <br>
-        <input name="programStartDate" type="date">  <br> <br>
+        
+        <input name="programStartDate" type="date" placeholder="Date of Enrolment" > 
 
-        <label>Mentor Name</label>  <br>
-        <select name="mentorName">
+        <select name="mentorName" aria-placeholder="MentorName" >
             <option value="Angel">Angel</option>
-            <option value="YashTangri">YashTangri</option>
+            <option value="Yash Tangri">YashTangri</option>
+            <option value="Darren">Darren</option>
+            <option value="Yash Dugriyal">Yash Dugriyal</option>
+            <option value="Ayush Mishra">Ayush Mishra</option>
+            <option value="Bhibhuti Jha">Bhibuti Jha</option>
+            <option value="Sahil Kumar">Sahil Kumar</option>
+            <option value="Vidya Mishra">Vidya Mishra</option>
+            
         </select>  <br>  <br>
 
         <button name="addstudent" type="submit" >Add Student</button>
@@ -31,12 +38,12 @@
     <br>
 
 
-    <form action = "/currentlyEnrolled" method="post" >
+    <form class = "currentlyEnrolled" action = "/currentlyEnrolled" method="post" >
 
         <button type="submit" > CurrentEnroled </button>
     </form>
 
-    <form action = "/mentorSort" method="post" > <br>
+    <form class="mentorsort" action = "/mentorSort" method="post" > <br>
         <button type="submit" > Search By Mentor </button>
        
     </form>

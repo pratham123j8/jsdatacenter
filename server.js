@@ -6,7 +6,7 @@ const { compile } = require("ejs");
 
 const app = express();
 app.set('view engine', 'ejs')
-app.use(express.static("public"));
+app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({extended:true}))
 
 // Variables 
@@ -95,6 +95,8 @@ app.get('/', function(req,res){
         res.render( "index.ejs")
 
 
+    } else {
+        res.redirect('/login')
     }
 
    
