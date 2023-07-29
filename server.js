@@ -89,6 +89,8 @@ app.get('/', function(req,res){
 
     if(allowUser ){
 
+        allowUser = false
+
         res.render( "index.ejs")
 
 
