@@ -83,6 +83,7 @@ app.get('/', function(req,res){
         if (currentUser == users[i].userName){
 
             allowUser = true;
+            currentUser = ''
         }
         
     }
@@ -120,7 +121,7 @@ app.get('/mentorSort',function(req,res){
 
 app.get('/login', function(req,res){
     allowUser = false
-    console.log(allowUser)
+  
     res.render("login.ejs")
 })
 
